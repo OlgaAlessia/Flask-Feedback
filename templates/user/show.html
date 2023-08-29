@@ -1,0 +1,72 @@
+{% extends 'base.html' %} 
+{% block title %}User Information{% endblock %}
+
+{% block content %}
+
+
+<section style="background-color: #f4f5f7;">
+    <div class="container py-3">
+        <div class="row d-flex justify-content-end align-items-end pr-4">
+            <form>
+                <button formmethod="POST" formaction="/users/{{ user.username }}/delete" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
+            </form>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center">
+            
+            <div class="col col-lg-6">
+                <div class="card mb-3" style="border-radius: .5rem;">
+                    <div class="card-body text-center">
+                        <h4 class="mb-2">{{ user.username }}</h4>
+                        <p class="text-muted mb-4">{{ user.full_name }}</p>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <h5>Information</h5>
+                        <hr class="mt-0 mb-4">
+                        <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                                <h6>Fist Name</h6>
+                                <p class="text-muted">{{ user.first_name }}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h6>Last Name</h6>
+                                <p class="text-muted">{{ user.last_name }}</p>
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                                <h6>Email</h6>
+                                <p class="text-muted">{{ user.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <a href="/users/{{user.username}}/feedback/add" class="btn btn-sm btn-danger"> Add Feedback </a>
+        </div>
+    </div>
+</section>
+
+{% for f in user.feedback %}
+<div class="card my-4">
+    <div class="card-body">
+        <form>
+            <h5 class="card-title text-info">
+                {{f.title}}
+                <div style="display:inline;">
+                    <button formmethod="GET" formaction="/feedback/{{f.id}}/update" class="btn btn-primary"> <i class="fas fa-pen-square"></i> </button>
+                    <button formmethod="POST" formaction="/feedback/{{f.id}}/delete" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> </button>
+                </div>
+            </h5>
+        </form> 
+        <p class="card-text"> {{f.content}} </p>
+    </div>
+</div>
+{%  endfor %}
+
+
+
+
+{% endblock %}

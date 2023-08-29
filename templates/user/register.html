@@ -1,0 +1,37 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
+<h1 class="display-1">Sign Up</h1>
+<p class="lead">Register below to join the application!</p>
+
+<form method="POST">
+
+	{{ form.hidden_tag() }}
+
+	{% for field in form
+		if field.widget.input_type != 'hidden' %}
+		
+		<div class="form-group">
+			{% if field == form.password %}
+
+			{{field.label(class_="form-label")}}
+			<div class="input-group">
+				{{field(class="form-control")}}
+				<span class="input-group-text"><i class="far fa-eye" id="eyePassword" style="cursor: pointer"></i></span>
+			</div>
+			{% else %}
+				{{field.label(class_="form-label")}}
+				{{field(class="form-control")}}
+			{% endif %}
+
+			{% for error in field.errors %}
+				<span class="form-text text-danger">{{ error }}</span>
+			{% endfor %}
+		</div>
+	{% endfor %}
+
+	<button class="btn btn-success" type="submit">Register</button>
+
+</form>
+{% endblock %}
